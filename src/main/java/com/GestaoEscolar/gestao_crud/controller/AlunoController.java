@@ -1,4 +1,4 @@
-package controller;
+package com.GestaoEscolar.gestao_crud.controller;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import model.Aluno;
-import service.AlunoService;
+import com.GestaoEscolar.gestao_crud.model.Aluno;
+import com.GestaoEscolar.gestao_crud.service.AlunoService;
 
 @RestController
 @RequestMapping("/alunos")
@@ -39,6 +39,11 @@ public class AlunoController {
 	    @GetMapping("/{id}")
 	    public ResponseEntity<Aluno> buscarPorId(@PathVariable Long id) {
 	        return alunoService.buscarPorId(id);
+	    }
+	    
+	    @GetMapping("/buscarPorNome/{nome}")
+	    public ResponseEntity<List<Aluno>> buscarPorNome(@PathVariable String nome) {
+	        return alunoService.buscarPorNome(nome);
 	    }
 
 	    @PutMapping("/atualizar/{id}")

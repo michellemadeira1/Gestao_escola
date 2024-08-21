@@ -1,4 +1,4 @@
-package model;
+package com.GestaoEscolar.gestao_crud.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +12,7 @@ public class Aluno {
 
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Long id;
 	 private String nome;
 	 private int idade;

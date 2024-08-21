@@ -1,4 +1,4 @@
-package service;
+package com.GestaoEscolar.gestao_crud.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import model.Aluno;
-import repository.AlunoRepository;
+import com.GestaoEscolar.gestao_crud.model.Aluno;
+import com.GestaoEscolar.gestao_crud.repository.AlunoRepository;
 
 @Service
 public class AlunoService {
@@ -36,6 +36,15 @@ public class AlunoService {
         }
     }
     
+    public ResponseEntity<List<Aluno>> buscarPorNome(String nome) {
+        List<Aluno> alunos = alunoRepository.findAllByNomeContainingIgnoreCase(nome);
+        if (alunos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(alunos);
+    }
+
+
     public ResponseEntity<Aluno> atualizar(Long id, Aluno alunoAtualizado) {
         Optional<Aluno> alunoOptional = alunoRepository.findById(id);
         if (alunoOptional.isPresent()) {
