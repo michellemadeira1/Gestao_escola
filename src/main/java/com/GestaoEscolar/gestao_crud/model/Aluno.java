@@ -1,5 +1,6 @@
 package com.GestaoEscolar.gestao_crud.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,12 +14,25 @@ public class Aluno {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Schema(description = "ID do aluno", example = "1")
 	 private Long id;
+	
+	 @Schema(description = "Nome do aluno", example = "João Silva")
 	 private String nome;
+	 
+	 @Schema(description = "Idade do aluno", example = "15")
 	 private int idade;
+	 
+	 @Schema(description = "Nota do primeiro semestre", example = "8.5")
 	 private double notaPrimeiroSemestre;
+	 
+	 @Schema(description = "Nota do segundo semestre", example = "9.0")
 	 private double notaSegundoSemestre;
+	 
+	 @Schema(description = "Nome do professor", example = "Prof. Carlos")
 	 private String nomeProfessor;
+	 
+	 @Schema(description = "Número da sala", example = "101")
 	 private int numeroSala;
 	 
 	 
