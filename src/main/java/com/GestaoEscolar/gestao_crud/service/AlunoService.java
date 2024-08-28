@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.GestaoEscolar.gestao_crud.model.Aluno;
 import com.GestaoEscolar.gestao_crud.repository.AlunoRepository;
 
+
+
 @Service
 public class AlunoService {
 
@@ -19,22 +21,36 @@ public class AlunoService {
 
     public ResponseEntity<List<Aluno>> listarTodos() {
         List<Aluno> alunos = alunoRepository.findAll();
-        return ResponseEntity.ok(alunos); // Retorna 200 OK com a lista de alunos
+        return ResponseEntity.ok(alunos); 
     }
+    
+
+  
 
     public ResponseEntity<Aluno> salvar(Aluno aluno) {
-        Aluno alunoSalvo = alunoRepository.save(aluno);
-        return ResponseEntity.status(HttpStatus.CREATED).body(alunoSalvo); // Retorna 201 Created com o aluno salvo
+        if (aluno.getId() != null && alunoRepository.findById(aluno.getId()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        Aluno novoAluno = alunoRepository.save(aluno);
+        return ResponseEntity.ok(novoAluno);
     }
 
+    
+    
+    
     public ResponseEntity<Aluno> buscarPorId(Long id) {
         Optional<Aluno> alunoOptional = alunoRepository.findById(id);
         if (alunoOptional.isPresent()) {
-            return ResponseEntity.ok(alunoOptional.get()); // Retorna 200 OK com o aluno encontrado
+            return ResponseEntity.ok(alunoOptional.get()); 
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Retorna 404 Not Found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+
+    
+    
     
     public ResponseEntity<List<Aluno>> buscarPorNome(String nome) {
         List<Aluno> alunos = alunoRepository.findAllByNomeContainingIgnoreCase(nome);
@@ -56,18 +72,18 @@ public class AlunoService {
             aluno.setNomeProfessor(alunoAtualizado.getNomeProfessor());
             aluno.setNumeroSala(alunoAtualizado.getNumeroSala());
             Aluno alunoAtualizadoSalvo = alunoRepository.save(aluno);
-            return ResponseEntity.ok(alunoAtualizadoSalvo); // Retorna 200 OK com o aluno atualizado
+            return ResponseEntity.ok(alunoAtualizadoSalvo); 
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Retorna 404 Not Found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
         }
     }
 
     public ResponseEntity<Void> deletar(Long id) {
         if (alunoRepository.existsById(id)) {
-            alunoRepository.deleteById(id); // Exclui o aluno do banco de dados
-            return ResponseEntity.noContent().build(); // Retorna 204 No Content
+            alunoRepository.deleteById(id); 
+            return ResponseEntity.noContent().build(); 
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Retorna 404 Not Found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
         }
     }
 }

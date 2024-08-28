@@ -10,4 +10,5 @@ import com.GestaoEscolar.gestao_crud.model.Aluno;
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	List<Aluno> findAllByNomeContainingIgnoreCase(String nome);
+	
 }
